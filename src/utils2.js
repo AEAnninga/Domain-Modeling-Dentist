@@ -1,61 +1,70 @@
-const names = [
+import store from './store/store'
+import { useState, useEffect } from '@hookstate/core'
+
+export const names = [
   // 4 dentists:
   { name: "Aad", 
     surname: "Groen", 
     gender: "male", 
     region: "Netherlands",
-    dentist: true,
     isSick: false,
     email: "aadgroen@dentistcompanybvt.com",
     phone: "0612345678",
+    dentist: true,
+    id: 1    
   },
   {
     name: "Harm van der",
     surname: "Pol",
     gender: "male",
     region: "Netherlands",
-    dentist: true,
     isSick: false,
     email: "harmvanderpol@dentistcompanybvt.com",
     phone: "0612345678",    
+    dentist: true,
+    id: 2
   },
   { name: "Pieter", 
     surname: "Meijer", 
     gender: "male", 
     region: "Netherlands",
-    dentist: true,
     isSick: false,
     email: "pietermeijer@dentistcompanybvt.com",
     phone: "0612345678",
+    dentist: true,
+    id: 3
   },
   {
     name: "Michiel",
     surname: "Gerritsen",
     gender: "male",
     region: "Netherlands",
-    dentist: true,
     isSick: false,
     email: "michielgerritsen@dentistcompanybvt.com",
     phone: "0612345678",
+    dentist: true,
+    id: 4
   }, 
   // 2 assistants
   { name: "Sander van", 
     surname: "Wijk", 
     gender: "male", 
     region: "Netherlands", 
-    assistant: true,
     isSick: false,
     email: "sandervanwijk@dentistcompanybvt.com",
     phone: "0612345678",
+    assistant: true,
+    id: 5
   },
   { name: "Olaf de", 
     surname: "Ruiter", 
     gender: "male", 
     region: "Netherlands", 
-    assistant: true,
     isSick: false, 
     email: "olafderuiter@dentistcompanybvt.com",
     phone: "0612345678",
+    assistant: true,
+    id: 6
   },
   // the rest are clients
   { 
@@ -67,6 +76,7 @@ const names = [
     email: "teundewit@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 7
   },
   { 
     name: "Tom", 
@@ -77,6 +87,7 @@ const names = [
     email: "tomschouten@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 8
   },
   {
     name: "Mirthe",
@@ -87,6 +98,7 @@ const names = [
     email: "mirthemeijer@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 9
   },
   { 
     name: "Lisa", 
@@ -96,7 +108,8 @@ const names = [
     phone: "0612345678",
     email: "lisakok@client.com",
     birthyear: "1982",
-    isSick: false, 
+    isSick: false,
+    id: 10 
   },
   { 
     name: "Emiel de", 
@@ -106,7 +119,8 @@ const names = [
     phone: "0612345678",
     email: "emieldevos@client.com",
     birthyear: "1982",
-    isSick: false, 
+    isSick: false,
+    id: 11 
   },
   {
     name: "Diewertje van",
@@ -117,6 +131,7 @@ const names = [
     email: "diewertjevanloon@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 12
   },
   {
     name: "Arjan van",
@@ -127,6 +142,7 @@ const names = [
     email: "arjanvanvliet@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 13
   },
   { 
     name: "Femke", 
@@ -137,6 +153,7 @@ const names = [
     email: "femkemeijer@client.com",
     birthyear: "1982",
     isSick: false, 
+    id: 14
   },
   {
     name: "Lonneke",
@@ -147,6 +164,7 @@ const names = [
     email: "lonnekesanders@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 15
   },
   {
     name: "Christien",
@@ -157,6 +175,7 @@ const names = [
     email: "christienprins@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 16
   },
   { 
     name: "Mathijs", 
@@ -166,7 +185,8 @@ const names = [
     phone: "0612345678",
     email: "matthijsmol@client.com",
     birthyear: "1982",
-    isSick: false, 
+    isSick: false,
+    id: 17 
   },
   { 
     name: "Carlijn", 
@@ -176,7 +196,8 @@ const names = [
     phone: "0612345678",
     email: "carlijnbos@client.com",
     birthyear: "1982",
-    isSick: false, 
+    isSick: false,
+    id: 18 
   },
   {
     name: "Eelco van der",
@@ -187,6 +208,7 @@ const names = [
     email: "eelcovandermeer@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 19
   },
   {
     name: "Willemijn",
@@ -197,6 +219,7 @@ const names = [
     email: "willemijnhofman@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 20
   },
   {
     name: "Reinout van der",
@@ -207,6 +230,7 @@ const names = [
     email: "reinoutvanderveen@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 21
   },
   {
     name: "Lotte",
@@ -217,6 +241,7 @@ const names = [
     email: "lottehoekstra@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 22
   },
   { 
     name: "Aart", 
@@ -227,6 +252,7 @@ const names = [
     email: "aartwillems@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 23
   },
   { 
     name: "Florus", 
@@ -237,6 +263,7 @@ const names = [
     email: "florusprins@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 24
   },
   {
     name: "Valentijn",
@@ -247,6 +274,7 @@ const names = [
     email: "valentijngerritsen@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 25
   },
   { 
     name: "Paul de", 
@@ -256,7 +284,8 @@ const names = [
     phone: "0612345678",
     email: "pauldevos@client.com",
     birthyear: "1982",
-    isSick: false, 
+    isSick: false,
+    id: 26 
   },
   { 
     name: "Henk", 
@@ -267,6 +296,7 @@ const names = [
     email: "henkpostma@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 27
   },
   {
     name: "Willemijn van",
@@ -277,6 +307,7 @@ const names = [
     email: "willemijnvandijk@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 28
   },
   {
     name: "Boudewijn van",
@@ -287,6 +318,7 @@ const names = [
     email: "boudewijnvandijk@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 29
   },
   { 
     name: "Jaap de", 
@@ -297,6 +329,7 @@ const names = [
     email: "jaapderuiter@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 30
   },
   {
     name: "Floor van",
@@ -307,6 +340,7 @@ const names = [
     email: "floorvanveen@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 31
   },
   { 
     name: "Tom de", 
@@ -316,7 +350,8 @@ const names = [
     phone: "0612345678",
     email: "tomdeleeuw@client.com",
     birthyear: "1982",
-    isSick: false, 
+    isSick: false,
+    id: 32 
   },
   {
     name: "Heleen van",
@@ -327,6 +362,7 @@ const names = [
     email: "heleenvanloon@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 33
   },
   { 
     name: "Luuk", 
@@ -336,7 +372,8 @@ const names = [
     phone: "0612345678",
     email: "luukhermans@client.com",
     birthyear: "1982",
-    isSick: false, 
+    isSick: false,
+    id: 34 
   },
   {
     name: "Huib van der",
@@ -347,6 +384,7 @@ const names = [
     email: "huibvanderveen@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 35
   },
   { 
     name: "Jaap", 
@@ -357,6 +395,7 @@ const names = [
     email: "jaaphoekstra@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 36
   },
   {
     name: "Mathijs van",
@@ -367,6 +406,7 @@ const names = [
     email: "matthijsvandijk@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 37
   },
   {
     name: "Peter de",
@@ -377,6 +417,7 @@ const names = [
     email: "peterdekoning@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 38
   },
   {
     name: "Maartje",
@@ -387,6 +428,7 @@ const names = [
     email: "maartjeschouten@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 39
   },
   { 
     name: "Thomas van", 
@@ -397,6 +439,7 @@ const names = [
     email: "thomasvandam@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 40
   },
   { 
     name: "Huib", 
@@ -406,7 +449,8 @@ const names = [
     phone: "0612345678",
     email: "huibverhoeven@client.com",
     birthyear: "1982",
-    isSick: false, 
+    isSick: false,
+    id: 41 
   },
   {
     name: "Imke van",
@@ -417,6 +461,7 @@ const names = [
     email: "imkevandongen@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 42
   },
   {
     name: "Maartje",
@@ -427,6 +472,7 @@ const names = [
     email: "maartjekramer@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 43
   },
   {
     name: "Willemijn van",
@@ -437,6 +483,7 @@ const names = [
     email: "willemijnvandongen@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 44
   },
   {
     name: "Daan",
@@ -447,6 +494,7 @@ const names = [
     email: "daantimmermans@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 45
   },
   { 
     name: "Tom", 
@@ -456,7 +504,8 @@ const names = [
     phone: "0612345678",
     email: "tomhuisman@client.com",
     birthyear: "1982",
-    isSick: false, 
+    isSick: false,
+    id: 46 
   },
   {
     name: "Doortje de",
@@ -467,6 +516,7 @@ const names = [
     email: "doortjedebruijn@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 47
   },
   {
     name: "Reinout",
@@ -477,6 +527,7 @@ const names = [
     email: "reinouthoekstra@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 48
   },
   {
     name: "Victor de",
@@ -487,6 +538,7 @@ const names = [
     email: "victordegraaf@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 49
   },
   { 
     name: "Ivo van", 
@@ -497,6 +549,7 @@ const names = [
     email: "ivovanvliet@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 50
   },
   {
     name: "Valentijn",
@@ -507,6 +560,7 @@ const names = [
     email: "valentijnevers@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 51
   },
   { 
     name: "Imke", 
@@ -516,7 +570,8 @@ const names = [
     phone: "0612345678",
     email: "imkejansen@client.com",
     birthyear: "1982",
-    isSick: false, 
+    isSick: false,
+    id: 52 
   },
   {
     name: "Willemijn de",
@@ -527,6 +582,7 @@ const names = [
     email: "willemijndelange@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 53
   },
   { 
     name: "Luuk", 
@@ -537,6 +593,7 @@ const names = [
     email: "luukmulder@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 54
   },
   {
     name: "Stefan",
@@ -547,6 +604,7 @@ const names = [
     email: "stefanhendriks@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 55
   },
   {
     name: "Leentje",
@@ -557,25 +615,24 @@ const names = [
     email: "leentjeschouten@client.com",
     birthyear: "1982",
     isSick: false,
+    id: 56
   },
 
 ];
 
-// console.log('Aantal personen', names.length)
-
-const getRandomName = () => {
+export const GetRandomName = () => {
   const clientNames = names.filter(name => (!name.dentist && !name.assistant) && name)
   const person = clientNames[Math.floor(Math.random() * clientNames.length)];
   return `${person.name} ${person.surname}`;
 };
 
-const getRandomDentist = () => {
+const GetRandomDentist = () => {
   const dentistNames = names.filter(name => name.dentist && name)
   const person = dentistNames[Math.floor(Math.random() * dentistNames.length)];
   return `${person.name} ${person.surname}`;
 }
 
-const getRandomAssistant = () => {
+const GetRandomAssistant = () => {
   const assistantNames = names.filter(name => name.assistant && name)
   const person = assistantNames[Math.floor(Math.random() * assistantNames.length)];
   return `${person.name} ${person.surname}`;
@@ -596,9 +653,9 @@ const getRandomDay = () => Math.floor(Math.random() * 20) + 1;
 const generateRandomAppointment = () => ({
   day: getRandomDay(),
   time: getRandomTime(),
-  patient: getRandomName(),
-  dentist: getRandomDentist(),
-  assistant: getRandomAssistant(),
+  patient: GetRandomName(),
+  dentist: GetRandomDentist(),
+  assistant: GetRandomAssistant(),
 });
 
 const checkForSameDayAppointments = (allAppointments, newAppointment) => {
@@ -611,8 +668,7 @@ const checkForSameDayAppointments = (allAppointments, newAppointment) => {
       sameDayAppointments = allAppointments.filter(app => app.day === newAppointment.day)
     }
   })
-  const checks = { doubleDay, sameDayAppointments }
-  return (checks)
+  return ({ doubleDay, sameDayAppointments })
 }
 
 const checkForDoubleAppointments = (sameDayAppointments, newAppointment) => {
@@ -624,41 +680,73 @@ const checkForDoubleAppointments = (sameDayAppointments, newAppointment) => {
     let samePatient = app.patient === newAppointment.patient
     if (sameTime && (sameDentist | sameAssistant | samePatient)) {
       isDouble = true
-      console.log('Dubbele afspraak: ', isDouble)
     } 
   })
   return isDouble
 }
 
-export const generateRandomAppointments = num => {
-  const allAppointments = []
 
-  while (allAppointments.length < num ) {
+export const giveId = (list) => {
+  const isArray = Array.isArray(list)
+  let array = []
+  if (isArray) {
+    for (let id = 1; id <= list.length; id++) {
+      list[id - 1].id = id;
+    }
+  }
+  if (typeof list === 'object') {
+    for (let day = 1; day <= 20; day++) {
+      list[day].forEach(app => {
+        array.push(app)
+      })
+    }
+    for (let id = 1; id <= array.length; id++) {
+      array[id - 1].id = id;
+    }
+  }
+  return isArray ? list : array
+}
+
+export const GenerateRandomAppointments = (num, appointments) => {
+  let allAppointments = []
+  if (appointments) {
+    allAppointments = [...appointments]
+  }
+  let number = num + allAppointments.length
+
+  while (allAppointments.length < number ) {
     const newAppointment = generateRandomAppointment()
-    if (allAppointments.length === 0) { // wanneer nog geen afspraken in array
+    if (allAppointments.length === 0) { // wanneer nog geen afspraken in de lijst
       allAppointments.push(newAppointment)
     }
-
+    // check of de dag al voorkomt in de lijst
     let  { doubleDay, sameDayAppointments } = checkForSameDayAppointments(allAppointments, newAppointment)
-    if (!doubleDay) {
+    if (!doubleDay) { // wanneer dag nog niet voorkomt mag de afspraak in de lijst
       allAppointments.push(newAppointment)
-    } else if (doubleDay) { 
-
-      let isDouble = checkForDoubleAppointments(sameDayAppointments, newAppointment)
-      if (!isDouble) {
-        allAppointments.push(newAppointment)
-      } else if (isDouble){
-        console.log('Dubbele afspraak: ', newAppointment)
-      } 
+    }
+    // wanneer de dag al voorkomt, genereer nieuwe lijst van de desbetreffende dag, check voor doubles
+    let isDouble = checkForDoubleAppointments(sameDayAppointments, newAppointment)
+    if (doubleDay && !isDouble) { // wanneer zelfde dag maar geen dubbele afspraak: toevoegen aan lijst
+      allAppointments.push(newAppointment)
     }  
   }
-  console.log('Aantal afspraken: ', allAppointments.length)
+  // const appointments = giveId(allAppointments)
   return allAppointments
 }
 
-const appointments = generateRandomAppointments(150)
+export const DivideByDay = appointments => {
+  const appointmentsByDay = {};
+  appointments.forEach(appointment => {
+    const day = appointment.day;
+    if (!appointmentsByDay.hasOwnProperty(day)) {
+      appointmentsByDay[day] = [];
+    }
+    appointmentsByDay[day].push(appointment) // geprobeerd hier gelijk te sorteren, niet gelukt
+    appointmentsByDay[day].sort((a,b) => a.time - b.time); // sort by time
+  });
+  giveId(appointmentsByDay)
+  return appointmentsByDay
+};
 
-console.log(appointments)
-
-
-
+export const appointments = GenerateRandomAppointments(150)
+export const appointmentsByDay = DivideByDay(appointments)

@@ -1,27 +1,29 @@
 import React from "react";
 import "./Calendar.css";
 import DayInMonth from "./DayInMonth";
+import { useState } from '@hookstate/core'
+import store from '../src/store/store'
 
-const divideByDay = appointments => {
-  const appointmentsByDay = {};
-  appointments.forEach(appointment => {
-    const day = appointment.day;
-    if (!appointmentsByDay.hasOwnProperty(day)) {
-      appointmentsByDay[day] = [];
+
+const Calendar = () => {
+  const { appointmentsList } = useState(store)
+  const appointments = [...appointmentsList.get()]
+  
+  const getApps = appointments => {
+    let allAppointments = []
+    for (let day = 1; day <= 20; day++) {
+      let array = appointments.filter(app => app.day === day)
+      array.sort((a, b) => a.time - b.time)
+      allAppointments.push(array)
     }
-    appointmentsByDay[day].push(appointment) // geprobeerd hier gelijk te sorteren, niet gelukt
-    appointmentsByDay[day].sort((a,b) => a.time - b.time); // sort by time
-  });
-  return appointmentsByDay;
-};
+    allAppointments.sort((a,b) => a.day - b.day);
+    return allAppointments
+  }
 
-
-
-export default ({ appointments }) => {
-  const appointmentsByDay = divideByDay(appointments);
+  const appointmentsCalendar = getApps(appointments)
   
   const daysInMonthJSX = Object.values(
-    appointmentsByDay
+    appointmentsCalendar
   ).map((appointmentsInDay, index) => (
     <DayInMonth appointments={appointmentsInDay} key={index} />
   ));
@@ -39,3 +41,5 @@ export default ({ appointments }) => {
     </div>
   );
 };
+
+export default Calendar
